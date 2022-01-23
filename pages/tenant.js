@@ -7,6 +7,8 @@ import styles from '../styles/Home.module.css'
 import {useState} from "react";
 import {Container, Nav, Navbar} from "react-bootstrap";
 
+
+
 export default function Tenant() {
     const [show, setShow] = useState(false);
     const handleLoginClose = () => setShow(false);
@@ -15,6 +17,8 @@ export default function Tenant() {
     const [sshow, ssetShow] = useState(false);
     const handleSignupClose = () => ssetShow(false);
     const handleSignupOpen = () => ssetShow(true);
+
+
 
     return (
         <div className={styles.container} style={{padding: 0}}>
