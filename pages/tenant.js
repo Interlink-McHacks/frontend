@@ -28,7 +28,7 @@ export default function Tenant() {
                         <Nav className="me-auto">
                             <Nav.Link href="tenant">Home</Nav.Link>
                             <Nav.Link href="users">Users</Nav.Link>
-                            <Nav.Link href="#dns">DNS Records</Nav.Link>
+                            <Nav.Link href="dns">DNS Records</Nav.Link>
                             <Nav.Link href="#activePrograms">Active Programs</Nav.Link>
                             <Nav.Link href="#pricing">Tunnels</Nav.Link>
                         </Nav>

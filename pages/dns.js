@@ -62,18 +62,21 @@ export default function Dns() {
                         <Nav className="me-auto">
                             <Nav.Link href="tenant">Home</Nav.Link>
                             <Nav.Link href="users">Users</Nav.Link>
-                            <Nav.Link href="#dns">DNS Records</Nav.Link>
+                            <Nav.Link href="dns">DNS Records</Nav.Link>
                             <Nav.Link href="#activePrograms">Active Programs</Nav.Link>
                             <Nav.Link href="#pricing">Tunnels</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>
-                <div style={{paddingLeft: 300 , paddingRight: 300}}>
+                <Container fluid style={{paddingLeft: 300 , paddingRight: 300}}>
                     <h1 style={{textAlign: "center", marginTop: 50}}>DNS Records</h1>
-                    <Container fluid style={{textAlign: "right", marginLeft: 0, marginRight: 0}}>
-                        <Button variant="primary" onClick={handleShow}>
-                            Add New Record
-                        </Button>
+
+                        <div style={{textAlign: "right", marginLeft: 0, marginRight: 0, paddingRight: 0}}>
+                            <Button variant={'secondary'} size={'lg'} onClick={handleShow} >Add New Record</Button>
+                        </div>
+                        {/*<Button variant="primary" onClick={handleShow}>*/}
+                        {/*    Add New Record*/}
+                        {/*</Button>*/}
 
                         <Modal show={show} size={"lg"} onHide={()=>{clearRecordModal(true)}}>
                             <Modal.Header closeButton>
@@ -123,19 +126,19 @@ export default function Dns() {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-                    </Container>
+
                     <Table striped bordered hover variant="dark" style={{marginTop: 5}}>
                         <thead>
                         <tr >
-                            <th style={{width: 700}}>Tenant ID</th>
-                            <th style={{width: 700}}>User ID</th>
-                            <th style={{width: 1 }}>Modify</th>
+                            <th>Host</th>
+                            <th>Answer</th>
+                            <th>Notes</th>
                         </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </Table>
-                </div>
+                </Container>
             </main>
         </div>
     )
