@@ -7,15 +7,18 @@ import styles from "../styles/Home.module.css";
 import {Button, Container, Form, Modal, Nav, Navbar} from "react-bootstrap";
 import axios from "axios"
 import Swal from "sweetalert2";
+import Router from 'next/router';
 
 
-function Home() {
+
+export default function Home() {
     //LOG IN
     const [showLogin, setShowLogin] = useState(false);
     const handleCloseLogin = () => setShowLogin(false);
     const handleShowLogin = () => setShowLogin(true);
     const [recordEmailLogin, setRecordEmailLogin] = useState()
     const [recordPasswordLogin, setRecordPasswordLogin] = useState()
+
     const clearRecordModalLogin = (close) => {
         setRecordEmailLogin(undefined);
         setRecordPasswordLogin(undefined);
@@ -25,16 +28,27 @@ function Home() {
     }
     const authenticateUserLogin = () => {
         axios({
-            url: `http://100.81.35.39:3000/api/login`,
+            url: `http://api.interlink.rest/api/login`,
             method: "POST",
             data: {
                 email : recordEmailLogin,
                 password : recordPasswordLogin,
             }
         }).then((response)=>{
-            const allReducers = combineReducers({
-                token: response.data.data.token
+            //const allReducers = combineReducers({
+               // token: response.data.data.token
+            //})
+            Swal.fire({
+                title: "Login Success",
+                text : "asdf",
+                icon: "success"
+            }).then(() => {
+                Router.push({
+                    pathname: '/tenant',
+                    query: { token: response.data.data.token }
+                })
             })
+
 
         }).catch(err => {
             Swal.fire({

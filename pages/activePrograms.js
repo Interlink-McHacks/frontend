@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, {Component, useEffect} from "react";
+import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -7,59 +7,46 @@ import styles from '../styles/Home.module.css'
 import {useState} from "react";
 import {Button, Modal, Form, Container, Navbar, Nav, Table} from "react-bootstrap";
 import Router, {useRouter} from 'next/router'
-import axios from "axios";
-import Swal from "sweetalert2";
 
-export default function Users() {
+export default function ActivePrograms() {
+
     const router = useRouter();
     const token = router.query.token;
-    let f = {
+    const f = {
         "status": 200,
         "message": "OK",
         "data": {
             "acls": [
                 {
                     "_id": "61ec7730f7d05e81788c51f3",
-                    "tenantID": "61ec73a88d868f0bfc5a3ce6",
-                    "userID": "61ec72195b7c7526436f183f",
+                    "name": "61ec73a88d868f0bfc5a3ce6",
+                    "description": "61ec72195b7c7526436f183f",
+                    "host connecting port" : 3000,
+                    "type" : "TCP",
                     "__v": 0
                 },
                 {
                     "_id": "61ec7730f7d05e81788c51f3",
-                    "tenantID": "asdf",
-                    "userID": "61ec72195b7c7526436f183f",
+                    "name": "asdf",
+                    "description": "61ec72195b7c7526436f183f",
+                    "host connecting port" : 324,
+                    "type" : "RZAS",
                     "__v": 0
                 }
             ]
         }
     }
-    let [tenantList, setTenantList] = useState();
-    const getTenants = () => {
-        axios({
-            url: `http://api.interlink.rest/api/user/acls`,
-            method: "GET",
-            headers: {
-                authorization : "Bearer " + token
-            }
-        }).then((res)=>{
-            f = res.data;
-            console.log(f);
-            setTenantList(f.data.acls.map(item => {
-                return (
-                    <tr>
-                        <td>{item.tenantID}</td>
-                        <td>{item.userID}</td>
-                        <td>
-                            <Button className={'btn btn-primary'}>Delete</Button>
-                        </td>
-                    </tr>
-                )
-            }))
-        })
-    }
-    useEffect(() => {
-        getTenants()
-    },[])
+    const programList = f.data.acls.map(item => {
+        return (
+            <tr>
+                <td>{item.name}</td>
+                <td>{item.description}</td>
+                <td>{item["host connecting port"]}</td>
+                <td>{item.type}</td>
+
+            </tr>
+        )
+    });
 
 
 
@@ -98,20 +85,18 @@ export default function Users() {
                     </Container>
                 </Navbar>
                 <Container fluid style={{paddingLeft: 300 , paddingRight: 300}}>
-                    <h1 style={{textAlign: "center", marginTop: 50}}>Tenants</h1>
-                    <div style={{textAlign: "right", marginLeft: 0, marginRight: 0}}>
-                        <Button variant={'secondary'} size={'lg'}  >Add New Tenant</Button>
-                    </div>
+                    <h1 style={{textAlign: "center", marginTop: 50}}>Active Programs</h1>
                     <Table striped bordered hover variant="dark" style={{marginTop: 5}}>
                         <thead>
                         <tr >
-                            <th style={{width: 700}}>Tenant ID</th>
-                            <th style={{width: 700}}>User ID</th>
-                            <th style={{width: 1 }}>Modify</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Host Connect Port</th>
+                            <th>Type</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {tenantList}
+                        {programList}
                         </tbody>
                     </Table>
                 </Container>

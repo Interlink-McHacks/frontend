@@ -7,8 +7,11 @@ import axios from "axios"
 import {useState} from "react";
 import {Button, Modal, Form, Container, Navbar, Nav, Table} from "react-bootstrap";
 import Swal from "sweetalert2";
+import Router, {useRouter} from 'next/router'
 import withReactContent from "sweetalert2-react-content";
 export default function Dns() {
+    const router = useRouter();
+    const token = router.query.token;
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -27,7 +30,7 @@ export default function Dns() {
     }
     const createRecord = () => {
         axios({
-            url: `http://100.81.35.39:3000/api/tenant/${tenantID}/dns/A`,
+            url: `http://api.interlink.rest/api/tenant/${tenantID}/dns/A`,
             method: "POST",
             data: {
                 name: recordName,
@@ -53,18 +56,33 @@ export default function Dns() {
     return (
         <div className={styles.container}  style={{padding: 0}}>
             <Head>
-                <title>Users</title>
+                <title>Interlink</title>
             </Head>
             <main>
                 <Navbar bg="dark" variant="dark">
                     <Container>
                         <Navbar.Brand>Interlink</Navbar.Brand>
                         <Nav className="me-auto">
-                            <Nav.Link href="tenant">Home</Nav.Link>
-                            <Nav.Link href="users">Users</Nav.Link>
-                            <Nav.Link href="dns">DNS Records</Nav.Link>
-                            <Nav.Link href="#activePrograms">Active Programs</Nav.Link>
-                            <Nav.Link href="#pricing">Tunnels</Nav.Link>
+                            <Nav.Link onClick={ function() { Router.push({
+                                pathname: '/tenant',
+                                query: { token: token }
+                            })}}>Home</Nav.Link>
+                            <Nav.Link onClick={ function() {Router.push({
+                                pathname: '/users',
+                                query: { token: token }
+                            })}}>Users</Nav.Link>
+                            <Nav.Link onClick={ function() {Router.push({
+                                pathname: '/dns',
+                                query: { token: token }
+                            })}}>DNS Records</Nav.Link>
+                            <Nav.Link onClick={ function() {Router.push({
+                                pathname: '/activePrograms',
+                                query: { token: token }
+                            })}}>Active Programs</Nav.Link>
+                            <Nav.Link onClick={ function() {Router.push({
+                                pathname: '/tunnels',
+                                query: { token: token }
+                            })}}>Tunnels</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>
